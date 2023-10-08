@@ -25,7 +25,8 @@ pkg install qemu-utils qemu-common qemu-system-x86_64-headless wget -y
 mkdir alpine && cd alpine
 ```
 
-5. Download Alpine Linux 3.12 (virt optimized) ISO```bash
+5. Download Alpine Linux 3.12 (virt optimized) ISO:
+```bash
 wget http://dl-cdn.alpinelinux.org/alpine/v3.12/releases/x86_64/alpine-virt-3.12.3-x86_64.iso
 ```
 
@@ -59,11 +60,9 @@ localhost:~# ifup eth0
 ```
 
 10. Create an answerfile to speed up installation:
-
 ```bash
 wget https://gist.githubusercontent.com/oofnikj/e79aef095cd08756f7f26ed244355d62/raw/answerfile
 ```
-
 > **NOTE:** You you see any error like this: ``wget: bad address 'gist.githubusercontent.com'``. Then run this command
 > ```bash
 > echo -e "nameserver 192.168.1.1\nnameserver 1.1.1.1" > /etc/resolv.conf
