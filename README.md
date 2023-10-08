@@ -59,10 +59,10 @@ localhost:~# ifup eth0
 ```
 
 10. Create an answerfile to speed up installation:
-
 ```bash
 wget https://gist.githubusercontent.com/oofnikj/e79aef095cd08756f7f26ed244355d62/raw/answerfile
 ```
+
 > **NOTE:** You you see any error like this: ``wget: bad address 'gist.githubusercontent.com'``. Then run this command
 > ```bash
 > echo -e "nameserver 192.168.1.1\nnameserver 1.1.1.1" > /etc/resolv.conf
