@@ -59,6 +59,7 @@ localhost:~# ifup eth0
 ```
 
 10. Create an answerfile to speed up installation:
+
 ```bash
 wget https://gist.githubusercontent.com/oofnikj/e79aef095cd08756f7f26ed244355d62/raw/answerfile
 ```
