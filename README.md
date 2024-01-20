@@ -81,6 +81,18 @@ setup-alpine -f answerfile
 qemu-system-x86_64 -machine q35 -m 1024 -smp cpus=2 -cpu qemu64 -drive if=pflash,format=raw,read-only=on,file=$PREFIX/share/qemu/edk2-x86_64-code.fd -netdev user,id=n1,hostfwd=tcp::2222-:22 -device virtio-net,netdev=n1 -nographic alpine.img
 ```
 
+Open Termux and navigate to the directory where you want to create the batch file.
+Use the touch command to create a new file. For example, touch run_qemu.sh.
+Open the new file in a text editor. You can use nano for this: nano run_qemu.sh.
+In the text editor, write the following:
+```bash
+#!/bin/bash
+qemu-system-x86_64 -machine q35 -m 1024 -smp cpus=2 -cpu qemu64 -drive if=pflash,format=raw,read-only=on,file=$PREFIX/share/qemu/edk2-x86_64-code.fd -netdev user,id=n1,hostfwd=tcp::2222-:22 -device virtio-net,netdev=n1 -nographic alpine.img
+```
+Save and close the file. In nano, you can do this by pressing Ctrl+X, then Y to confirm saving, and then Enter to confirm the filename.
+Before you can run the script, you’ll need to make it executable. You can do this with the chmod command: `chmod +x run_qemu.sh`.
+Now you can run your script whenever you need to start your QEMU machine: ./run_qemu.sh.
+
 15. Update system and install docker:
 ```bash
 
