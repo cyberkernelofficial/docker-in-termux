@@ -1,0 +1,15 @@
+KEYMAPOPTS="tr"
+HOSTNAMEOPTS="-n alpine"
+INTERFACESOPTS="auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+    hostname alpine
+"
+TIMEZONEOPTS="-z UTC"
+PROXYOPTS="none"
+APKREPOSOPTS="http://dl-cdn.alpinelinux.org/alpine/v3.19/main http://dl-cdn.alpinelinux.org/alpine/v3.19/community"
+SSHDOPTS="-c openssh"
+NTPOPTS="-c busybox"
+DISKOPTS="-v -m sys -s 0 /dev/sda"
