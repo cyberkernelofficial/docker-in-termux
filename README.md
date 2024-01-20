@@ -25,7 +25,7 @@ pkg install qemu-utils qemu-common qemu-system-x86_64-headless wget -y
 mkdir alpine && cd alpine
 ```
 
-5. Download Alpine Linux 3.12 (virt optimized) ISO:
+5. Download Alpine Linux 3.19 (virt optimized) ISO:
 ```bash
 wget http://dl-cdn.alpinelinux.org/alpine/v3.19/releases/x86_64/alpine-virt-3.19.0-x86_64.iso
 ```
