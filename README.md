@@ -58,7 +58,7 @@ ifup eth0
 
 10. Create an answerfile to speed up installation:
 ```bash
-wget https://gist.githubusercontent.com/oofnikj/e79aef095cd08756f7f26ed244355d62/raw/answerfile
+wget https://raw.githubusercontent.com/dev-bittu/docker-in-termux/main/answerfile
 ```
 > **NOTE:** You you see any error like this: ``wget: bad address 'gist.githubusercontent.com'``. Then run this command
 > ```bash
@@ -80,9 +80,9 @@ setup-alpine -f answerfile
 14. Boot again without cdrom:
 ```bash
 qemu-system-x86_64 -machine q35 -m 1024 -smp cpus=2 -cpu qemu64 -drive if=pflash,format=raw,read-only=on,file=$PREFIX/share/qemu/edk2-x86_64-code.fd -netdev user,id=n1,dns=8.8.8.8,hostfwd=tcp::2222-:22 -device virtio-net,netdev=n1 -nographic alpine.img
-
 ```
-a- 
+
+A - 
 `nano run_qemu.sh`
 In the text editor, write the following:
 ```bash
@@ -90,8 +90,10 @@ In the text editor, write the following:
 qemu-system-x86_64 -machine q35 -m 1024 -smp cpus=2 -cpu qemu64 -drive if=pflash,format=raw,read-only=on,file=$PREFIX/share/qemu/edk2-x86_64-code.fd -netdev user,id=n1,dns=8.8.8.8,hostfwd=tcp::2222-:22 -device virtio-net,netdev=n1 -nographic alpine.img
 ```
 Save and close the file. In nano, you can do this by pressing Ctrl+X, then Y to confirm saving, and then Enter to confirm the filename.
-b- chmod command: `chmod +x run_qemu.sh`.
-c- `./run_qemu.sh`
+
+B - chmod command: `chmod +x run_qemu.sh`
+
+C - `./run_qemu.sh`
 
 15. Update system and install docker:
 ```bash
