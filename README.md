@@ -60,7 +60,7 @@ ifup eth0
 ```bash
 wget https://raw.githubusercontent.com/dev-bittu/docker-in-termux/main/answerfile
 ```
-> **NOTE:** You you see any error like this: ``wget: bad address 'gist.githubusercontent.com'``. Then run this command
+> **NOTE:** If you see any error like this: ``wget: bad address 'gist.githubusercontent.com'``. Then run this command
 > ```bash
 > echo -e "nameserver 192.168.1.1\nnameserver 1.1.1.1" > /etc/resolv.conf
 > ```
