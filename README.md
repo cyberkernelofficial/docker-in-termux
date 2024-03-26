@@ -25,9 +25,9 @@ pkg install qemu-utils qemu-common qemu-system-x86_64-headless wget -y
 mkdir alpine && cd alpine
 ```
 
-5. Download Alpine Linux 3.19 (virt optimized) ISO:
+5. Download Alpine Linux 3.12 (virt optimized) ISO:
 ```bash
-wget http://dl-cdn.alpinelinux.org/alpine/v3.19/releases/x86_64/alpine-virt-3.19.0-x86_64.iso
+wget http://dl-cdn.alpinelinux.org/alpine/v3.12/releases/x86_64/alpine-virt-3.12.3-x86_64.iso
 ```
 
 6. Create disk (note it won't actually take 5GB of space, more like 500-600MB):
@@ -37,7 +37,11 @@ qemu-img create -f qcow2 alpine.img 5G
 
 7. Boot it up:
 ```bash
-qemu-system-x86_64 -machine q35 -m 1024 -smp cpus=2 -cpu qemu64 -drive if=pflash,format=raw,read-only=on,file=$PREFIX/share/qemu/edk2-x86_64-code.fd -netdev user,id=n1,dns=8.8.8.8,hostfwd=tcp::2222-:22 -device virtio-net,netdev=n1 -cdrom alpine-virt-3.19.0-x86_64.iso -nographic alpine.img
+qemu-system-x86_64 -machine q35 -m 1024 -smp cpus=2 -cpu qemu64 \
+  -drive if=pflash,format=raw,read-only,file=$PREFIX/share/qemu/edk2-x86_64-code.fd \
+  -netdev user,id=n1,hostfwd=tcp::2222-:22 -device virtio-net,netdev=n1 \
+  -cdrom alpine-virt-3.12.3-x86_64.iso \
+  -nographic alpine.img
 ```
 
 8. Login with username ``root`` (no password)
@@ -51,16 +55,15 @@ localhost:~# setup-interfaces
  Ip address for eth0? (or 'dhcp', 'none', '?') [dhcp]
  Do you want to do any manual network configuration? [no]
 ```
-localhost:~# 
 ```bash
-ifup eth0
+localhost:~# ifup eth0
 ```
 
 10. Create an answerfile to speed up installation:
 ```bash
-wget https://raw.githubusercontent.com/cyberkernelofficial/docker-in-termux/main/answerfile
+wget https://gist.githubusercontent.com/oofnikj/e79aef095cd08756f7f26ed244355d62/raw/answerfile
 ```
-> **NOTE:** If you see any error like this: ``wget: bad address 'gist.githubusercontent.com'``. Then run this command
+> **NOTE:** You you see any error like this: ``wget: bad address 'gist.githubusercontent.com'``. Then run this command
 > ```bash
 > echo -e "nameserver 192.168.1.1\nnameserver 1.1.1.1" > /etc/resolv.conf
 > ```
@@ -79,28 +82,14 @@ setup-alpine -f answerfile
 
 14. Boot again without cdrom:
 ```bash
-qemu-system-x86_64 -machine q35 -m 1024 -smp cpus=2 -cpu qemu64 -drive if=pflash,format=raw,read-only=on,file=$PREFIX/share/qemu/edk2-x86_64-code.fd -netdev user,id=n1,dns=8.8.8.8,hostfwd=tcp::2222-:22 -device virtio-net,netdev=n1 -nographic alpine.img
+qemu-system-x86_64 -machine q35 -m 1024 -smp cpus=2 -cpu qemu64 \
+  -drive if=pflash,format=raw,read-only,file=$PREFIX/share/qemu/edk2-x86_64-code.fd \
+  -netdev user,id=n1,hostfwd=tcp::2222-:22 -device virtio-net,netdev=n1 \
+  -nographic alpine.img
 ```
-
-A - 
-`nano run_qemu.sh`
-In the text editor, write the following:
-```bash
-#!/bin/bash
-qemu-system-x86_64 -machine q35 -m 1024 -smp cpus=2 -cpu qemu64 -drive if=pflash,format=raw,read-only=on,file=$PREFIX/share/qemu/edk2-x86_64-code.fd -netdev user,id=n1,dns=8.8.8.8,hostfwd=tcp::2222-:22 -device virtio-net,netdev=n1 -nographic alpine.img
-```
-Save and close the file. In nano, you can do this by pressing Ctrl+X, then Y to confirm saving, and then Enter to confirm the filename.
-
-B - chmod command: `chmod +x run_qemu.sh`
-
-C - `./run_qemu.sh`
 
 15. Update system and install docker:
 ```bash
-
-echo "nameserver 8.8.8.8" > /etc/resolv.conf
-echo "nameserver 8.8.4.4" >> /etc/resolv.conf
-
 apk update && apk add docker
 ```
 
