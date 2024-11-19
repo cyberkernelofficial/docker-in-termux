@@ -36,10 +36,11 @@ qemu-img create -f qcow2 alpine.img 5G
 ```
 
 7. Boot it up:
+Here we're using 1024MB of memory and 2 cpus
 ```bash
 qemu-system-x86_64 -machine q35 -m 1024 -smp cpus=2 -cpu qemu64 -drive if=pflash,format=raw,read-only=on,file=$PREFIX/share/qemu/edk2-x86_64-code.fd -netdev user,id=n1,dns=8.8.8.8,hostfwd=tcp::2222-:22 -device virtio-net,netdev=n1 -cdrom alpine-virt-3.20.2-x86_64.iso -nographic alpine.img
 ```
-
+> you can get number of useable cpus using `nproc` and total memory using `free -m | grep -oP '\d+' | head -n 1`
 8. Login with username ``root`` (no password)
 
 9. Setup network (press Enter to use defaults):
